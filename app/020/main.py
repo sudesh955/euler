@@ -4,12 +4,22 @@
 # Find the sum of the digits in the number 100!.
 
 
+def mutliply(digits: list[int], num: int):
+	carry = 0
+	for i, it in enumerate(digits):
+		s = carry + it * num
+		digits[i] = s % 10
+		carry = s // 10
+	while carry != 0:
+		digits.append(carry % 10)
+		carry = carry // 10
+
+
 def main(n: int = 100):
-	x = 1
+	x = [1]
 	for i in range(2, n + 1):
-		x *= i
+		mutliply(x, i)
 	s = 0
-	while x != 0:
-		s += x % 10
-		x = x // 10
+	for it in x:
+		s += it
 	return s
