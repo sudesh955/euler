@@ -34,6 +34,8 @@ def divisors(x: int, primes: list[int]):
 		divisors *= count + 1
 	if x != 1:
 		divisors *= 2
+		if x not in primes:
+			primes.append(x)
 		primes.append(x)
 	return divisors
 
