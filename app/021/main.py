@@ -8,9 +8,10 @@
 # Evaluate the sum of all the amicable numbers under 10000
 
 
-def prime_factors(x: int, primes: list[int]):
-	pfs: list[tuple[int, int]] = []
-	mx = int(x**0.5) + 1
+def sum_of_factors(num: int, primes: list[int]):
+	s = 1
+	x = num
+	mx = int(num**0.5) + 1
 	for p in primes:
 		if p > mx:
 			break
@@ -18,24 +19,17 @@ def prime_factors(x: int, primes: list[int]):
 			break
 		if x % p != 0:
 			continue
-		count = 0
+		m, n = 1, 1
 		while x % p == 0:
-			count += 1
 			x = x // p
-		pfs.append((p, count))
+			n = n * p
+			m += n
+		s *= m
 	if x != 1:
-		pfs.append((x, 1))
+		s *= x + 1
 		if x not in primes:
 			primes.append(x)
-	return pfs
-
-
-def sum_of_factors(x: int, primes: list[int]):
-	s = 1
-	pfs = prime_factors(x, primes)
-	for p, n in pfs:
-		s *= ((p ** (n + 1)) - 1) // (p - 1)
-	return s - x
+	return s - num
 
 
 def main(n: int = 10000):
